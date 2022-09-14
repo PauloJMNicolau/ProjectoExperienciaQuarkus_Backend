@@ -55,6 +55,14 @@ public class CalculoPrestacaoService {
             return Response.status(Response.Status.BAD_REQUEST).entity(erros).build();
         }
         try{
+            if(financiamento.getNome().isEmpty() || financiamento.getNome().trim().length() == 0) {
+                Erros erros = new Erros("Falta indicar o nome");
+                return Response.status(Response.Status.BAD_REQUEST).entity(erros).build();
+            }
+            if(financiamento.getContacto().isEmpty() || financiamento.getContacto().trim().length() == 0){
+                Erros erros = new Erros("Falta indicar o contacto");
+                return Response.status(Response.Status.BAD_REQUEST).entity(erros).build();
+            }
             File ficheiro = new File(Paths.get("").toAbsolutePath().normalize() +"/files/venda_"+ financiamento.getNome()+".csv");
             FileOutputStream ficheiroStream = new FileOutputStream(ficheiro);
             String linha = financiamento.toString();
